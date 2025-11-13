@@ -1,24 +1,25 @@
 import http from "node:http";
-import { serveStatic } from "./utils/servestatic.js";
+import fs from 'node:fs'
+import path from "node:path";
+
 const PORT=1024
 
 // The directory name of the current module
 const __dir = import.meta.dirname
 
 const server = http.createServer(async (req, res)=>{
-    // // Construct the absolute path to the index.html file by joining the directory name with 'public' and 'index.html'
-    // const abspath2res = path.join(import.meta.dirname, 'public', 'index.html')
-    // console.log('absolute: ',abspath2res)
 
-    // // Construct the relative path to the index.html file by joining 'public' and 'index.html'
-    // const relpath2res = path.join('public', 'index.html')
-    // console.log('relative: ',relpath2res)
+    const pathToResource = path.join(__dir, 'public', 'index.html')
 
-    serveStatic(__dir)
-
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')
-    res.end('<html><h1>The server is working</h1></html>')
+    fs.readFile(pathToResource, 'utf8', (err, content)=>{
+        if(err){
+            console.error(err)
+            return
+        }
+        res.statusCode = 200
+        res.setHeader('Content-Type', 'text/html')
+        res.end(content)
+    })
 })
 
 server.listen(PORT, ()=>{
