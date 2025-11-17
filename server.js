@@ -14,5 +14,5 @@ const server = http.createServer(async (req, res)=>{
 // Start the server and listen on the specified port`
 server.listen(PORT, ()=>{
     // Log a message to the console indicating the server is running
-    console.log(`Server running at :  http://localhost:${PORT}/api`)
+    console.log(`Server running at :  http://localhost:${PORT}`)
 })

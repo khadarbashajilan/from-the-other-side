@@ -1,0 +1,14 @@
+export function getContentType(ext) {
+    const types = {
+        ".js": "text/javascript",
+        ".css": "text/css",
+        ".json": "application/json",
+        ".png": "image/png",
+        ".jpg": "image/jpg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+        ".svg": "image/svg+xml",
+        ".ico": "image/x-icon"   // ← favicon.ico
+    };
+    return types[ext.toLowerCase()] || "text/html";
+}
