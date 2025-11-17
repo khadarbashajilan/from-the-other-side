@@ -16,7 +16,6 @@ export async function serveStatic(req, res, baseDir) {
   );
 
   try {
-    console.log(filePath);
     // Check if the file path is a directory
     const stat = await fs.stat(filePath);
     if (stat.isDirectory()) {
@@ -25,7 +24,7 @@ export async function serveStatic(req, res, baseDir) {
     }
 
     // Log the file path for debugging purposes
-    console.log(filePath);
+    // console.log(filePath);
 
     // Get the file extension and determine the content type
     const ext = path.extname(filePath);
@@ -41,20 +40,15 @@ export async function serveStatic(req, res, baseDir) {
     if (err.code === "ENOENT") {
       // File not found, serve 404.html
       const notFoundPath = path.join(publicDir, "404.html");
-      try {
-        // Read the 404.html file content
-        const content = await fs.readFile(notFoundPath);
+      // try {
+      // Read the 404.html file content
+      const content = await fs.readFile(notFoundPath);
 
-        // Send the 404.html content as the response
-        sendResponse(res, 404, "text/html", content);
-      } catch (e) {
-        // If 404.html is not found, send a generic error response
-        sendResponse(res, 500, "text/plain", "Internal Server Error");
-        console.error(e);
-      }
+      // Send the 404.html content as the response
+      sendResponse(res, 404, "text/html", content);
     } else {
       // Send a generic error response for other errors
-      sendResponse(res, 500, "text/plain", "Internal Server Error");
+      sendResponse(res, 500, "text/html", `<h1>${err.code}</h1>`);
       console.error(err);
     }
   }
