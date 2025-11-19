@@ -3,7 +3,7 @@ import http from "node:http";
 // Import the 'serveStatic' function from the './utils/serveStatic.js' module to serve static files
 import { serveStatic } from "./utils/serveStatic.js";
 // Import the 'handleGet' function from the './handlers/routeHandlers.js' module to handle GET requests to the '/api' endpoint
-import { handleGet } from "./handlers/routeHandlers.js";
+import { handleGet, handlePost } from "./handlers/routeHandlers.js";
 
 // Define the port number on which the server will listen
 const PORT = 1024;
@@ -17,6 +17,7 @@ const server = http.createServer(async (req, res) => {
     if (req.url === '/api') {
         // If the request method is 'GET', call the 'handleGet' function asynchronously
         if (req.method === 'GET') return await handleGet(res)
+            else if(req.method === 'POST') return await handlePost(req, res)
     }
     // Check if the request URL does not start with '/api'
     else if (!req.url.startsWith('/api')) {
