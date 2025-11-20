@@ -1,4 +1,5 @@
 // Import the 'getdata' function from the '../utils/getdata.js' module
+import { addSightings } from "../utils/addnewSightings.js";
 import { getdata } from "../utils/getdata.js";
 import { parseJSON } from "../utils/parseJSONbody.js";
 // Import the 'sendResponse' function from the '../utils/sendResponse.js' module
@@ -15,6 +16,12 @@ export async function handleGet(res) {
 }
 
 export async function handlePost(req, res) {
-    const rawbody = await parseJSON(req)
-    console.log(rawbody)
+    try{
+        const parsedBody = await parseJSON(req)
+        await addSightings(parsedBody)
+        sendResponse(res,201,'application/json', JSON.stringify(parsedBody))
+    }catch(err){
+        sendResponse(res, 400, 'application/json', JSON.stringify({error: err}))
+    }
+
 }
