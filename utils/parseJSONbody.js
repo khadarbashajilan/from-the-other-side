@@ -1,12 +1,18 @@
+// Define an asynchronous function named 'parseJSON' that takes a 'req' parameter
 export async function parseJSON(req) {
-    let body = "";
+  // Initialize an empty string to store the request body
+  let body = "";
 
-    for await (const chunks of req) {
-      body += chunks;
-    }
+  // Use a for-await loop to iterate over the chunks of the request body
+  for await (const chunks of req) {
+    // Append each chunk to the 'body' string
+    body += chunks;
+  }
   try {
-    return JSON.parse(body)
+    // Parse the 'body' string as JSON and return the resulting object
+    return JSON.parse(body);
   } catch (err) {
-    throw new Error(`Invalid JOSN Format: ${err}`)
+    // If an error occurs during JSON parsing, throw a new error with a descriptive message
+    throw new Error(`Invalid JOSN Format: ${err}`);
   }
 }
