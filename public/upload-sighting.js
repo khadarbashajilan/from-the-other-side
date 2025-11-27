@@ -1,5 +1,20 @@
-  // Create a new Date object from the ISO date string
-  const date = new Date(isoDateString)
+// Get the form and form message elements from the DOM
+const form = document.getElementById("eventForm")
+const formMessageText = document.querySelector(".form-message-text")
+
+// Add an event listener to the form for the submit event
+form.addEventListener("submit", async (event) => {
+  // Prevent the default form submission behavior
+  event.preventDefault()
+
+  // Get the form data
+  const title = document.getElementById("title").value
+  const text = document.getElementById("details").value
+  const dateTimeString = document.getElementById("datetime").value
+  const location = document.getElementById("location").value
+
+  // Create a new Date object from the date and time string
+  const date = new Date(dateTimeString)
   // Define options for formatting the date
   const options = {
     year: "numeric",      // Display the year numerically
@@ -24,7 +39,7 @@
     // Clear any previous form message
     formMessageText.textContent = ""
     // Send form data using the fetch API
-    const response = await fetch("./api", {
+    const response = await fetch("/api", {
       method: "POST",      // Use POST method
       headers: {
         "Content-Type": "application/json"  // Set the content type to JSON
@@ -49,3 +64,4 @@
     // Log the error to the console
     console.error("Error:", error)
   }
+})

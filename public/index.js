@@ -4,17 +4,19 @@ try {
   renderCards(response)
 } catch (err) {
   console.log(err)
+  console.log("Error in index.js")
 }
 
 function renderCards(cardsData) {
   const container = document.querySelector(".cards-container")
+  console.log(cardsData)
   let cardsHTML = ""
 
   cardsData.forEach((card, i) => {
     cardsHTML += `
-<article class="sighting-card" aria-labelledby="sighting-title-${i}">
-  <p class="card-details">${card.timeStamp}, ${card.location}</p>
-  <h3 id="sighting-title-${i}">${card.title}</h3>
+    <article class="sighting-card" aria-labelledby="sighting-title-${i}">
+    <p class="card-details">${card.timeStamp}, ${card.location}</p>
+    <h3 id="sighting-title-${i}">${card.title}</h3>
   <div class="sighting-text-wrapper">
     <p class="sighting-text">${card.text}</p>
   </div>
@@ -22,7 +24,7 @@ function renderCards(cardsData) {
 </article>
   `
   })
-
+  
   container.innerHTML = cardsHTML
 }
 
