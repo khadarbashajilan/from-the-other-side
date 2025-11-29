@@ -4,12 +4,10 @@ try {
   renderCards(response)
 } catch (err) {
   console.log(err)
-  console.log("Error in index.js")
 }
 
 function renderCards(cardsData) {
   const container = document.querySelector(".cards-container")
-  console.log(cardsData)
   let cardsHTML = ""
 
   cardsData.forEach((card, i) => {
